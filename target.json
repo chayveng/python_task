@@ -1,0 +1,26 @@
+[
+  {
+    "name": "AAA",
+    "interval": 2,
+    "active": true,
+    "task_id": null
+  },
+  {
+    "name": "BBB",
+    "interval": 5,
+    "active": true,
+    "task_id": null
+  },
+  {
+    "name": "CCC",
+    "interval": 10,
+    "active": true,
+    "task_id": null
+  },
+  {
+    "name": "DDD",
+    "interval": 15,
+    "active": true,
+    "task_id": null
+  }
+]

@@ -13,8 +13,7 @@ services:
     networks:
       - lab_task
 
-
-  api:
+  fastapi:
     build:
       context: .
       dockerfile: Dockerfile
@@ -29,16 +28,30 @@ services:
     networks:
       - lab_task
 
-  celery:
+  celery_tasks:
     build:
       context: .
       dockerfile: Dockerfile
     command: celery -A tasks worker --loglevel=info
-    container_name: celery_app
+    container_name: celery_tasks
     volumes:
       - .:/app
     depends_on:
-      - api
+      - fastapi
+      - redis
+    networks:
+      - lab_task
+
+  celery_scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A tasks beat --loglevel=info
+    container_name: celery_scheduler
+    # volumes:
+    #   - ./scheduler:/app
+    depends_on:
+      - fastapi
       - redis
     networks:
       - lab_task
