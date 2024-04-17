@@ -7,13 +7,16 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 celery = Celery(
     'tasks',
-    broker='redis://localhost:6379/0',
-    backend='redis://localhost:6379/0'
+    broker='redis://redis:6379/0',
+    backend='redis://redis:6379/0'
 )
 
 @celery.task(name='example_task')
 def example_task(x, y):
-    logger = logging.getLogger(__name__)
-    logger.info("Running example_task multiple times")
-    return x + y
-
+    print("run example_task")
+    try:
+        logging.info("Running example_task")
+        return x + y
+    except Exception as e:
+        logging.error(f"Error in example_task: {str(e)}")
+        raise e
